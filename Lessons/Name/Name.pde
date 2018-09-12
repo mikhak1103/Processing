@@ -5,6 +5,10 @@ void setup()
 
 int boldness = 1;
 
+int x = 0;
+int y = 0;
+int frames = 0;
+
 void draw()
 {
   
@@ -13,47 +17,49 @@ void draw()
   strokeWeight(boldness);
   
   //M
-  line(20,30,20,150);
-  line(20,30,75,110);
-  line(75,110,130,30);
-  line(130,30,130,150);
+  line(x + 20,30,x + 20,150);
+  line(x + 20,30,x + 75,110);
+  line(x + 75,110,x + 130,30);
+  line(x + 130,30,x + 130,150);
   
   //I
-  line(155,30,155,150);
+  line(x + 155,30,x + 155,150);
   
   //C
-  arc(240, 90, 130, 120, -4.9, -HALF_PI);
+  arc(x + 240, 90, 130, 120, -4.9, -HALF_PI);
   noFill();
   
   //H
-  line(280,30,280,150);
-  line(280,90,330,90);
-  line(330,30,330,150);
+  line(x + 280,30,x + 280,150);
+  line(x + 280,90,x + 330,90);
+  line(x + 330,30,x + 330,150);
   
   //A
-  line(400,30,360,150);
-  line(380,90,420,90);
-  line(400,30,440,150);
+  line(x + 400,30,x + 360,150);
+  line(x + 380,90,x + 420,90);
+  line(x + 400,30,x + 440,150);
   
   //E
-  line(460,30,460,150);
-  line(460,30,510,30);
-  line(460,95,510,95);
-  line(460,150,510,150);
+  line(x + 460,30,x + 460,150);
+  line(x + 460,30,x + 510,30);
+  line(x + 460,95,x + 510,95);
+  line(x + 460,150,x + 510,150);
   
   //L
-  line(540,30,540,150);
-  line(540,150,590,150);
+  line(x + 540,30,x + 540,150);
+  line(x + 540,150,x + 590,150);
   
-
-  
-  if (mousePressed == true)
+  for(int i = 0; i < 10; i++)
   {
-    boldness +=1;
+    x = frames * i;
   }
-  else {
-  boldness = 1;
-  }
+  
+  frames++;
+  
+  if (x > width)
+  frames=0;
+
+
   
   
   
