@@ -1,14 +1,19 @@
+//vectors
 PVector randomVector;
 PVector playerVector;
 PVector differenceVector;
-float rx, ry, rm;
-float distanceX;
-float distanceY;
+
+//booleans
 boolean clicked = false;
 boolean scored = false;
-float diff;
+
+//floats
+float rx, ry, rm;
 float dx, dy, dm;
 float px, py, pm;
+float diff;
+
+//ints
 int points = 0;
 int score = 0;
 int totalClicks = 0;
@@ -26,11 +31,11 @@ void draw()
 {
 	background(0);
 		String scoreText = "Score: " + score;
-		text(scoreText, 10, 10, 70, 80);  // Text wraps within text box
+		text(scoreText, 10, 10, 100, 80);  // Text wraps within text box
 		String pointsText = "You scored " + points + " point(s)!";
-		text(pointsText, 10, 40, 70, 80);  // Text wraps within text box
+		text(pointsText, 10, 50, 300, 80);  // Text wraps within text box
 		String clicksText = "Total clicks: " + totalClicks;
-		text(clicksText, 10, 70, 70, 80);  // Text wraps within text box
+		text(clicksText, 10, 85, 300, 80);  // Text wraps within text box
 }
 
 
