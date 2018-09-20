@@ -41,3 +41,8 @@ void draw()
 	}	
 	ellipse(ball.x,ball.y,10,10);
 }		
+
+
+
+
+

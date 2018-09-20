@@ -14,20 +14,21 @@ import java.io.IOException;
 
 public class Assignment_BouncyBall extends PApplet {
 
+/*
 PVector ball;
 PVector dir;
 int speed;
 boolean red = false;
 
-public void setup()
+void setup()
 {
-	
+	size(640, 480);
 	ball = new PVector(100,5);
 	dir = new PVector(2,2);
 	speed = 10;
 }
 
-public void draw()
+void draw()
 {
 	background(0);
 
@@ -56,11 +57,61 @@ public void draw()
 
 	}	
 	ellipse(ball.x,ball.y,10,10);
-
-
-	System.out.println("");
 }		
-  public void settings() { 	size(640, 480); }
+
+*/
+
+
+
+PVector DotPos;
+PVector DotMove;
+
+PVector Velocity;
+PVector Location;
+
+int speed = 5;
+
+
+public void setup()
+{
+  DotPos = new PVector(width/2, height/2);
+  Location = new PVector(width/2, height/2);
+  DotMove = new PVector (mouseX-DotPos.x, mouseY - DotPos.y);
+  Velocity = new PVector (2.5f, -2);
+
+  
+}
+
+public void draw ()
+{
+
+
+
+  background(140, 100, 158, 0);
+
+
+  DotMove.normalize();
+  Velocity.normalize();
+
+  DotPos.x = DotPos.x + DotMove.x * speed; // ger nytt värde till dotposition som vi har satt till att vara i mitten
+  DotPos.y = DotPos.y + DotMove.y * speed;
+  //Location.add(Velocity);
+  Location.x = Location.x + (Velocity.x * speed);
+  Location.y = Location.y + (Velocity.y * speed);
+
+  if ((Location.x > width) || (Location.x < 0))
+  {
+   Velocity.x = Velocity.x * -1;
+  }
+
+  if ((Location.y > height) || (Location.y < 0))
+  {
+   Velocity.y = Velocity.y * - 1;
+  }
+  ellipse (DotPos.x, DotPos.y, 15, 15);
+  ellipse (Location.x, Location.y, 30, 30);
+}
+  public void settings() {  size (768, 768); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Assignment_BouncyBall" };
     if (passedArgs != null) {
