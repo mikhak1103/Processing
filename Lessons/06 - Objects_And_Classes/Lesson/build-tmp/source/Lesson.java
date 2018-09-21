@@ -16,15 +16,23 @@ public class Lesson extends PApplet {
 
 Ball[] balls;
 int numberOfBalls = 100;
+int size = 10;
 
 public void setup()
 {
 	
-	balls = new Ball[numberOfBalls];
+	balls = new Ball[numberOfBalls]; //declare size of array
 
 	for(int i = 0; i < numberOfBalls; i++)
 	{
-		balls[i] = new Ball();
+		if(random(0 , 1) < 0.5f)
+		{
+			balls[i] = new Apple();
+		}
+		else 
+		{
+			balls[i] = new Pear();
+		}
 	}
 }
 
@@ -32,13 +40,33 @@ public void draw()
 {
 	background(0);
 	fill(255);
-	controls();
-	for(int i = 0; i < balls.length; i++)
+	for(int i = 0; i < numberOfBalls; i++)
 	{
-		balls[i].draw();
-		balls[i].update();
-	}	
+		for(int j = i + 1; j < numberOfBalls; j++)
+		{
+			boolean hasCollided = collision(balls[i].position.x,
+											balls[i].position.y,
+											balls[i].size/2,
+											balls[j].position.x,
+											balls[j].position.y,
+											balls[j].size/2);
+											
+			if(hasCollided)
+			{
+				balls[i].velocity.x = 0;
+				balls[j].velocity.x = 0;
+				balls[i].velocity.y = 0;
+				balls[j].velocity.y = 0;
+			}
+			balls[i].update();
+		}
+		for(int i = 0; i < numberOfBalls; i++)
+		{
+			balls[i].draw();
+		}
+	}
 }
+
 
 
 
@@ -80,29 +108,87 @@ class Ball
 			velocity.y *= -1;
 	}
 
+	public void move()
+	{
+		if(keyPressed)
+		if(keyCode == UP)
+		background(255,0,0);		
+	}
+
 	public void update()
 	{
 		position.x += velocity.x;
 		position.y += velocity.y;
 		checkCollision();
+		move();
 	}
 
 	public void draw()
 	{
-		ellipse(position.x, position.y, 10, 10);
+		ellipse(position.x - size/2, position.y - size/2, size, size);
+	}
+
+}
+
+//-----------------------------------------
+
+public class Apple extends Ball 
+{
+	public Apple()
+	{
+		super();
+	}
+	public Apple(int x, int y)
+	{
+		super(x, y);
+	}
+	public void draw()
+	{
+		fill(255, 0, 0);
+		super.draw();
 	}
 }
 
 //-----------------------------------------
 
-public void controls()
+public class Pear extends Ball
 {
-	if(keyPressed)
-		if(keyCode == UP)
-		background(255,0,0);
+	public Pear()
+	{
+		super();
+	}
+	public Pear(int x, int y)
+	{
+		super(x, y);
+	}
+	public void draw()
+	{
+		fill(0, 255, 0);
+		ellipse(position.x, position.y, size/3, size *  1.2f);
+	}
 }
 
-//-----------------------------------------
+//----------------------------
+
+public boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
+{
+
+	int maxDistance = size1 + size2;
+
+	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
+	{
+		return false;
+	}
+	else if(dist(x1, y1, x2, y2) > maxDistance)
+	{
+		return false;
+	}
+	else 
+	{
+		return true;		
+	}
+
+}
   public void settings() { 	size(512, 512); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Lesson" };
