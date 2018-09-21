@@ -37,12 +37,13 @@ void draw()
 											characters[j].position.y,
 											characters[j].size);
 											
-			if(hasCollided && characters[i] instanceof Zombie && !(characters[j] instanceof Zombie))
+			if(hasCollided && (characters[i] instanceof Zombie || characters[j] instanceof Zombie) && !(characters[j] instanceof Zombie))
 			{
 				characters[j] = new Zombie();
+				characters[j].size = 12;
 				textSize(26); 
 				text("Yummy!", characters[i].position.x, characters[i].position.y); //says yummy every time they eat a human
-
+				num+=1;
 			}
 		}
 			characters[i].update();
@@ -53,7 +54,7 @@ void draw()
 	{
 		characters[i].draw();
 	}
-	//text("Score: " + num, 10, 10, 70, 80);
+	text("Score: " + num, 10, 10, 70, 80);
 }
 
 
@@ -107,9 +108,9 @@ public Character()
 	{
 		if(position.x >= width)
 			position.x = 20;
-		if(position.x <= 0)
+		if(position.x <= 5)
 			velocity.x *= -1;
-		if(position.y >= height || position.y <= 0)
+		if(position.y >= height - 5 || position.y <= 5)
 			velocity.y *= -1;
 	}
 
@@ -132,6 +133,7 @@ public class Human extends Character
 	void draw()
 	{
 		fill(h1,h2,h3);
+		size=12;
 		super.draw();
 	}
 
