@@ -12,14 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Assignment_sine extends PApplet {
-
-int frame = 0;
-float multiplier = 0.002f;
-int numberOfPoints = 100;
-
-float inc = TWO_PI/25.0f;
-float angle = 0;
+public class Assignment_Sine extends PApplet {
 
 public void setup()
 {
@@ -27,45 +20,36 @@ public void setup()
 	strokeWeight(5);
 }
 
+int count = 100;
+float angle = 0;
+float angle2 = 0;
+int amp = 120;
+float inc = TWO_PI/50;
+
 public void draw()
 {
 	background(255);
-
-	//Draw animated point
-	for(int i = 0 ; i <= numberOfPoints; i++)
+	for(int i = 0; i <= count; i += 1)
 	{
 		stroke(0,0,0);
-		float x = width/numberOfPoints * i;
-		float y = sin(angle)*40.0f;
-
-		point(x, y + height/5);
-		angle = angle + inc;
+		float x = width/count * i;		// x point updates every 6.4 pixels, 100 times
+		float y = sin(angle) * amp;		// update the y point of the curve for each update of the angle | amp = height of curve
+		point(x, y + amp);			// y position of the curve starts at the middle of the screen
+		angle = angle + inc;			// update the interval speed of which the curve moves (inc)
 	}
 
-		//Draw animated point
-	for(int i = 0 ; i <= numberOfPoints; i++)
+	for(int i = 0; i <= count; i += 1)
 	{
 		stroke(255,0,0);
-		float x = width/numberOfPoints * i;
-		float y = cos(angle)*40.0f;
-
-		point(x, y + height/2);
-		angle = angle + inc;
+		float x = width/count * i;		// x point updates every 6.4 pixels, 100 times
+		float y = cos(angle2) * amp;		// update the y point of the curve for each update of the angle | amp = height of curve
+		point(x, y + 360);			// y position of the curve starts at the middle of the screen
+		angle2 = angle2 + inc;			// update the interval speed of which the curve moves (inc)
 	}
 }
-
-
-
-
-
-/*
-sinv= motstående katet / hypotenusa 
-cosv= närliggande katet / hypotenusa 
-tanv= motstående katet / närliggande katet 
-*/
   public void settings() { 	size(640, 480); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "Assignment_sine" };
+    String[] appletArgs = new String[] { "Assignment_Sine" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

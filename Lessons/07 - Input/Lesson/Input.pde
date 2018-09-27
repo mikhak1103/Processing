@@ -1,5 +1,7 @@
 boolean moveLeft;
 boolean moveRight;
+boolean moveUp;
+boolean moveDown;
 
 void keyPressed()
 {
@@ -18,6 +20,14 @@ void keyPressed()
 		{
 			moveLeft = true;
 		}
+		if(keyCode == UP)
+		{
+			moveUp = true;
+		}
+		else if(keyCode == DOWN)
+		{
+			moveDown = true;
+		}
 	}
 
 	//letters
@@ -29,6 +39,14 @@ void keyPressed()
 	else if(key == 'a')
 	{
 		moveLeft = true;
+	}
+	if(key == 'w')
+	{
+		moveUp = true;
+	}
+	if(key == 's')
+	{
+		moveDown = true;
 	}
 }
 
@@ -47,6 +65,14 @@ void keyReleased()
 		{
 			moveLeft = false;
 		}
+		if(keyCode == UP)
+		{
+			moveUp = false;
+		}
+		else if(keyCode == DOWN)
+		{
+			moveDown = false;
+		}
 	}
 
 	//letters
@@ -59,6 +85,14 @@ void keyReleased()
 	{
 		moveLeft = false;
 	}	
+	if(key == 'w')
+	{
+		moveUp = false;
+	}
+	if(key == 's')
+	{
+		moveDown = false;
+	}
 }
 
 float getAxisRaw(String axis)
@@ -73,6 +107,18 @@ float getAxisRaw(String axis)
 		{
 			return 1;
 		}
+	}
+
+	if(axis == "Vertical")
+	{
+		if(moveUp)
+		{
+			return -1;
+		}
+		if(moveDown)
+		{
+			return 1;
+		}		
 	}
 
 	return 0;

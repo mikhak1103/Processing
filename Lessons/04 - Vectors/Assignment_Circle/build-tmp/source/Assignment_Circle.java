@@ -36,8 +36,8 @@ public void draw()
 	background(0);
 
 
-	dir.x = circle.x - mouseX; //Vector between the mouse's x and the circle's x
-	dir.y = circle.y - mouseY; //Vector between the mouse's y and the circle's y
+	dir.x = mouseX - circle.x; //Vector between the mouse's x and the circle's x
+	dir.y = mouseY - circle.y; //Vector between the mouse's y and the circle's y
 
 	dir.normalize(); 			//Lowers the speed at which the circle moves towards the mouse position
 

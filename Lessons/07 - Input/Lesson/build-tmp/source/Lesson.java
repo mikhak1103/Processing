@@ -34,8 +34,10 @@ public void draw()
 	fill(0);
 
 	float xMovement = getAxisRaw("Horizontal") * speed;
+	float yMovement = getAxisRaw("Vertical") * speed;
 
 	position.x += xMovement;
+	position.y += yMovement;
 
 	ellipse(position.x, position.y, 50, 50);
 }
@@ -45,12 +47,16 @@ public void draw()
 
 boolean moveLeft;
 boolean moveRight;
+boolean moveUp;
+boolean moveDown;
 
 public void keyPressed()
 {
 
 	println(keyCode);
-	
+
+	//keyCodes
+
 	if(key == CODED)
 	{
 		if(keyCode == RIGHT)
@@ -61,7 +67,17 @@ public void keyPressed()
 		{
 			moveLeft = true;
 		}
+		if(keyCode == UP)
+		{
+			moveUp = true;
+		}
+		else if(keyCode == DOWN)
+		{
+			moveDown = true;
+		}
 	}
+
+	//letters
 
 	if(key == 'd')
 	{
@@ -71,11 +87,20 @@ public void keyPressed()
 	{
 		moveLeft = true;
 	}
+	if(key == 'w')
+	{
+		moveUp = true;
+	}
+	if(key == 's')
+	{
+		moveDown = true;
+	}
 }
 
 public void keyReleased()
 {
 	
+	//keyCodes
 
 	if(key == CODED)
 	{
@@ -87,7 +112,17 @@ public void keyReleased()
 		{
 			moveLeft = false;
 		}
+		if(keyCode == UP)
+		{
+			moveUp = false;
+		}
+		else if(keyCode == DOWN)
+		{
+			moveDown = false;
+		}
 	}
+
+	//letters
 
 	if(key == 'd')
 	{
@@ -97,6 +132,14 @@ public void keyReleased()
 	{
 		moveLeft = false;
 	}	
+	if(key == 'w')
+	{
+		moveUp = false;
+	}
+	if(key == 's')
+	{
+		moveDown = false;
+	}
 }
 
 public float getAxisRaw(String axis)
@@ -111,6 +154,18 @@ public float getAxisRaw(String axis)
 		{
 			return 1;
 		}
+	}
+
+	if(axis == "Vertical")
+	{
+		if(moveUp)
+		{
+			return -1;
+		}
+		if(moveDown)
+		{
+			return 1;
+		}		
 	}
 
 	return 0;

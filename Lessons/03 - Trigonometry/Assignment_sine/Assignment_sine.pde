@@ -18,7 +18,7 @@ void draw()
 		stroke(0,0,0);
 		float x = width/count * i;		// x point updates every 6.4 pixels, 100 times
 		float y = sin(angle) * amp;		// update the y point of the curve for each update of the angle | amp = height of curve
-		point(x, y + 120);			// y position of the curve starts at the middle of the screen
+		point(x, y + amp);			// y position of the curve starts at the middle of the screen
 		angle = angle + inc;			// update the interval speed of which the curve moves (inc)
 	}
 

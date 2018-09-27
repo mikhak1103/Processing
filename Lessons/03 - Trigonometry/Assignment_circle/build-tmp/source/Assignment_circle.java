@@ -12,19 +12,21 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class Assignment_circle extends PApplet {
+public class Assignment_Circle extends PApplet {
 
-public void setup()
+/*
+
+void setup()
 {
-	
+	size(640, 480);
 	strokeWeight(5);
 }
 
 //variables
 
-float radius = 100, angle = 0, count = 10, slice = PI*2/count, x ,y;
+float radius = 200, angle = 0, count = 10, slice = PI*2/count, x ,y;
 
-public void draw()
+void draw()
 {
 	background(0);
 	strokeWeight(10);
@@ -32,14 +34,43 @@ public void draw()
 
 	for(float i = 0; i < count; i++){
 	float x = width/2 + sin(angle) * radius;		//sets the starting point in the middle, and spaces out the first point in the middle on the x-axis + 100;
-	float y = height/2 + sin(angle) * radius;		//sets the starting point in the middle, and spaces out the first point in the middle on the y-axis + 100;
+	float y = height/2 + cos(angle) * radius;		//sets the starting point in the middle, and spaces out the first point in the middle on the y-axis + 100;
 	point(x, y);
-	angle += slice;
+	angle += slice;									//sets points in an interval of each 36 degrees (PI*2 = 360 degrees);
 }
 }
-  public void settings() { 	size(640, 480); }
+
+
+void spiral()
+{
+
+}
+
+*/
+int frame = 0;
+
+public void setup()
+{
+
+strokeWeight(0.1f);
+}
+
+ 
+public void draw()
+{
+translate(width/2, height/2);
+for (int i = 0; i < 1000; i++)
+{
+  rotate(0.1f) += frame;
+  scale(1.01f);
+  line(10, -15, 10, 15);
+}
+	frame++;
+}
+  public void settings() { 
+size(400, 400); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "Assignment_circle" };
+    String[] appletArgs = new String[] { "Assignment_Circle" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

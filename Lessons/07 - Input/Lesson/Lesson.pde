@@ -18,8 +18,10 @@ void draw()
 	fill(0);
 
 	float xMovement = getAxisRaw("Horizontal") * speed;
+	float yMovement = getAxisRaw("Vertical") * speed;
 
 	position.x += xMovement;
+	position.y += yMovement;
 
 	ellipse(position.x, position.y, 50, 50);
 }

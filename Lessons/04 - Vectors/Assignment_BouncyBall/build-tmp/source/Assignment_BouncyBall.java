@@ -14,104 +14,121 @@ import java.io.IOException;
 
 public class Assignment_BouncyBall extends PApplet {
 
-/*
 PVector ball;
 PVector dir;
 int speed;
-boolean red = false;
+float deltaTime; // this was called frameTime in the walkthrough. Only one of them is necessary
+float time;
 
-void setup()
+Ball[] balls;
+int ballCount = 5000;
+
+public void setup()
 {
-	size(640, 480);
+	
 	ball = new PVector(100,5);
 	dir = new PVector(2,2);
 	speed = 10;
+
+	balls = new Ball[ballCount];
+
+	for(int i = 0; i < ballCount; i++)
+	{
+		balls[i] = new Ball();
+	}
 }
 
-void draw()
+public void draw()
 {
+  	long currentTime = millis();
+  	deltaTime = (currentTime - time) * 0.05f; // we want this is seconds, fraction of a second
+
 	background(0);
 
 	dir.normalize();
 
-	ball.x = ball.x + (dir.x * speed);
-	ball.y = ball.y + (dir.y * speed);
+	ball.x = ball.x + (dir.x * speed) * deltaTime;
+	ball.y = ball.y + (dir.y * speed) * deltaTime;
 
-	if(ball.x > width || ball.x < 0)
+	if(ball.x < 0)
 	{
 		dir.x = dir.x * -1;
-		if(!red)
-		{
-			fill(255,0,0);
-			red = true;
-		}
-		else if(red)
-		{
-			fill(255);
-			red = false;
-		}
+	}
+	if(ball.x > width)
+	{
+		ball.x = 0;
 	}
 	if(ball.y > height || ball.y < 0)
 	{
 		dir.y = dir.y * -1;
-
 	}	
 	ellipse(ball.x,ball.y,10,10);
+
+	for(int i = 0; i < ballCount; i++)
+	{
+		balls[i].draw();
+	}
+
+	for(int i = 0; i < ballCount; i++)
+	{
+		balls[i].update();
+	}
+
+	time = currentTime;
 }		
 
-*/
 
 
 
-PVector DotPos;
-PVector DotMove;
-
-PVector Velocity;
-PVector Location;
-
-int speed = 5;
-
-
-public void setup()
+class Ball
 {
-  DotPos = new PVector(width/2, height/2);
-  Location = new PVector(width/2, height/2);
-  DotMove = new PVector (mouseX-DotPos.x, mouseY - DotPos.y);
-  Velocity = new PVector (2.5f, -2);
+	PVector pos;
+	PVector vel;
+	float c1, c2, c3;
 
-  
+	public Ball()
+	{
+		pos = new PVector();
+		pos.x = random(0, width);
+		pos.y = random(0, height);
+
+		vel = new PVector(random(10, -10), random(10, -10));
+
+		c1 = random(255);
+		c2 = random(255);
+		c2 = random(255);
+	}
+
+	public void draw()
+	{
+		fill(c1, c2, c3);
+		ellipse(pos.x, pos.y, 10, 10);
+	}
+
+	public void update()
+	{
+		pos.x += vel.x;
+		pos.y += vel.y;
+		collision();
+	}
+
+	public void collision()
+	{
+	if(pos.x < 0)
+	{
+		vel.x = vel.x * -1;
+	}
+	if(pos.x > width)
+	{
+		vel.x = vel.x * -1;
+	}
+	if(pos.y > height || pos.y < 0)
+	{
+		vel.y = vel.y * -1;
+	}
+	}
 }
-
-public void draw ()
-{
-
-
-
-  background(140, 100, 158, 0);
-
-
-  DotMove.normalize();
-  Velocity.normalize();
-
-  DotPos.x = DotPos.x + DotMove.x * speed; // ger nytt värde till dotposition som vi har satt till att vara i mitten
-  DotPos.y = DotPos.y + DotMove.y * speed;
-  //Location.add(Velocity);
-  Location.x = Location.x + (Velocity.x * speed);
-  Location.y = Location.y + (Velocity.y * speed);
-
-  if ((Location.x > width) || (Location.x < 0))
-  {
-   Velocity.x = Velocity.x * -1;
-  }
-
-  if ((Location.y > height) || (Location.y < 0))
-  {
-   Velocity.y = Velocity.y * - 1;
-  }
-  ellipse (DotPos.x, DotPos.y, 15, 15);
-  ellipse (Location.x, Location.y, 30, 30);
-}
-  public void settings() {  size (768, 768); }
+  public void settings() { 	size(640, 480); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Assignment_BouncyBall" };
     if (passedArgs != null) {
