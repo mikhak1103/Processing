@@ -44,7 +44,7 @@ public void draw()
 
 	for(int i = 0; i < numberOfCharacters; i++)
 	{
-		for(int j = i + 1; j < numberOfCharacters; j++)
+		for(int j = 0; j < numberOfCharacters; j++)
 		{
 			boolean hasCollided = collision(characters[i].position.x,
 											characters[i].position.y,
