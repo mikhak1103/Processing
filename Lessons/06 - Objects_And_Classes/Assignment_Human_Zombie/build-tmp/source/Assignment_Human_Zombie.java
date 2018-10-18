@@ -19,6 +19,9 @@ int numberOfCharacters = 100;
 int numZombies = 1;
 int num = 0;
 
+float time;
+float deltaTime;
+
 public void setup()
 {
 	
@@ -36,10 +39,15 @@ public void setup()
 			characters[i] = new Zombie();
 		}
 	}
+	
 }
 
 public void draw()
 {
+
+	long currentTime = second() + millis();
+  	deltaTime = (currentTime - time) * 0.05f; // we want this is seconds, fraction of a second
+
 	background(120,120,120);
 
 	for(int i = 0; i < numberOfCharacters; i++)
@@ -48,10 +56,10 @@ public void draw()
 		{
 			boolean hasCollided = collision(characters[i].position.x,
 											characters[i].position.y,
-											characters[i].size,
+											characters[i].size/2,
 											characters[j].position.x,
 											characters[j].position.y,
-											characters[j].size);
+											characters[j].size/2);
 											
 			if(hasCollided && (characters[i] instanceof Zombie || characters[j] instanceof Zombie) && !(characters[j] instanceof Zombie))
 			{
@@ -70,15 +78,10 @@ public void draw()
 	{
 		characters[i].draw();
 	}
-	text("Score: " + num, 10, 10, 70, 80);
+	
+	time = currentTime;
+	scoreScreen();
 }
-
-
-
-
-
-
-
 
 
 
@@ -112,6 +115,7 @@ public Character()
 
 	public void draw()
 	{
+		ellipseMode(CENTER);
 		ellipse(position.x - size/2, position.y - size/2, size, size);
 	}
 
@@ -171,10 +175,39 @@ public class Zombie extends Human
 	public void draw()
 	{
 		fill(z1, z2, z3);
+		createArm("left");
+		createArm("right");
 		super.callFirstDraw();
 		// ellipse(position.x - size/2, position.y - size/2, size, size);
 
 	}
+
+	private void createArm(String leftOrRight)
+	{
+		PVector arm;
+		PVector hand;
+
+		arm = new PVector();
+		arm.x = position.x;
+		arm.y = position.y;
+
+		hand = new PVector();
+		hand.x = position.x;
+		hand.y = position.y;
+
+		if(leftOrRight == "left")
+		{
+			line(arm.x, arm.y, arm.x + 8, arm.y + 8);
+		}
+		if(leftOrRight == "right")
+		{
+			line(arm.x, arm.y, arm.x -18, arm.y -18);
+		}
+
+		
+
+	}
+
 }
 
 
@@ -195,6 +228,19 @@ public boolean collision(float x1, float y1, int size1, float x2, float y2, int 
 	{
 		return true;		
 	}
+}
+
+
+
+
+
+public void scoreScreen()
+{
+	fill(255);
+	rect(25, 570, 250, 20);
+	fill(0);
+	textSize(20);
+	text("Time elapsed: " + time, 50, 570, width/2, 50);
 }
   public void settings() { 	size(800,600); }
   static public void main(String[] passedArgs) {

@@ -16,7 +16,6 @@ public class Lesson extends PApplet {
 
 Ball[] balls;
 int numberOfBalls = 100;
-int size = 10;
 
 public void setup()
 {
@@ -35,6 +34,8 @@ public void setup()
 		}
 	}
 }
+
+//------------------------------------------------
 
 public void draw()
 {
@@ -58,16 +59,20 @@ public void draw()
 				balls[i].velocity.y = 0;
 				balls[j].velocity.y = 0;
 			}
-			balls[i].update();
+			
 		}
-		for(int i = 0; i < numberOfBalls; i++)
-		{
-			balls[i].draw();
-		}
+
+		balls[i].update();
+	}
+//------------------------------------------------
+	
+	for(int i = 0; i < numberOfBalls; i++)
+	{
+		balls[i].draw();
 	}
 }
 
-
+//------------------------------------------------
 
 
 
@@ -79,6 +84,7 @@ class Ball
 
 	PVector position;
 	PVector velocity;
+	int size = 10;
 
 	public Ball()
 	{
@@ -164,7 +170,7 @@ public class Pear extends Ball
 	public void draw()
 	{
 		fill(0, 255, 0);
-		ellipse(position.x, position.y, size/3, size *  1.2f);
+		ellipse(position.x, position.y, size/2, size*2);
 	}
 }
 
@@ -172,7 +178,6 @@ public class Pear extends Ball
 
 public boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
 {
-
 	int maxDistance = size1 + size2;
 
 	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
@@ -187,7 +192,6 @@ public boolean collision(float x1, float y1, int size1, float x2, float y2, int 
 	{
 		return true;		
 	}
-
 }
   public void settings() { 	size(512, 512); }
   static public void main(String[] passedArgs) {

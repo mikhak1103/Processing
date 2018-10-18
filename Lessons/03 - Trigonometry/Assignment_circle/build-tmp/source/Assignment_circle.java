@@ -47,28 +47,19 @@ void spiral()
 }
 
 */
-int frame = 0;
-
-public void setup()
-{
-
-strokeWeight(0.1f);
+public void setup() {
+  
 }
-
  
-public void draw()
-{
-translate(width/2, height/2);
-for (int i = 0; i < 1000; i++)
-{
-  rotate(0.1f) += frame;
-  scale(1.01f);
-  line(10, -15, 10, 15);
+public void draw() {
+
+  for (float t = 0; t < 2*TWO_PI; t+=0.1f ) {
+    float x = t * cos(t);
+    float y = t * sin(t);
+    point(x, y);
+  }
 }
-	frame++;
-}
-  public void settings() { 
-size(400, 400); }
+  public void settings() {  size(400, 400); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Assignment_Circle" };
     if (passedArgs != null) {
